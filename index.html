@@ -2724,6 +2724,95 @@
                 showNextMessage();
             }, 1000);
         }
+
+        // Mobile chat input fix
+        (function() {
+            // Find the chat input elements
+            const chatInput = document.querySelector('#user-input');
+            const inputArea = document.querySelector('.input-area');
+            const messagesContainer = document.querySelector('#messages-container');
+            
+            if (!chatInput || !inputArea) return;
+            
+            // Create styles for mobile fixes
+            const style = document.createElement('style');
+            style.textContent = `
+                @media (max-width: 768px) {
+                    /* Fix input area positioning */
+                    .mobile-input-fixed {
+                        position: fixed !important;
+                        bottom: 0 !important;
+                        left: 0 !important;
+                        right: 0 !important;
+                        z-index: 9999 !important;
+                        background: white !important;
+                        border-top: 1px solid #ddd !important;
+                        box-shadow: 0 -2px 10px rgba(0,0,0,0.1) !important;
+                        margin: 0 !important;
+                    }
+                    
+                    /* Add bottom padding to messages container */
+                    .mobile-messages-padded {
+                        padding-bottom: 80px !important;
+                        box-sizing: border-box !important;
+                    }
+                    
+                    /* Ensure input container stays visible */
+                    .mobile-input-fixed .input-container {
+                        margin: 0 !important;
+                        max-width: none !important;
+                        width: 100% !important;
+                    }
+                    
+                    /* Prevent input zoom on iOS */
+                    .mobile-input-fixed #user-input {
+                        font-size: 16px !important;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            function isMobile() {
+                return window.innerWidth <= 768;
+            }
+            
+            function fixChatInput() {
+                if (!isMobile()) {
+                    // Remove fixes on desktop
+                    inputArea.classList.remove('mobile-input-fixed');
+                    if (messagesContainer) {
+                        messagesContainer.classList.remove('mobile-messages-padded');
+                    }
+                    return;
+                }
+                
+                // Apply mobile fixes
+                inputArea.classList.add('mobile-input-fixed');
+                if (messagesContainer) {
+                    messagesContainer.classList.add('mobile-messages-padded');
+                }
+                
+                // Scroll input into view when focused (only add listener once)
+                if (!chatInput.dataset.mobileFixApplied) {
+                    chatInput.addEventListener('focus', function() {
+                        setTimeout(() => {
+                            inputArea.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                        }, 300);
+                    });
+                    chatInput.dataset.mobileFixApplied = 'true';
+                }
+            }
+            
+            // Apply fixes immediately
+            setTimeout(fixChatInput, 100);
+            
+            // Reapply on window resize
+            window.addEventListener('resize', fixChatInput);
+            
+            // Handle dynamic content changes
+            const observer = new MutationObserver(fixChatInput);
+            observer.observe(document.body, { childList: true, subtree: true });
+        })();
     </script>
 
 </body>
