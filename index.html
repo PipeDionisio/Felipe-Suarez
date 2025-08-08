@@ -2753,8 +2753,13 @@
                     
                     /* Add bottom padding to messages container */
                     .mobile-messages-padded {
-                        padding-bottom: 80px !important;
+                        padding-bottom: 120px !important;
                         box-sizing: border-box !important;
+                    }
+                    
+                    /* Ensure typing indicator is visible above input */
+                    .mobile-messages-padded #typing-indicator {
+                        margin-bottom: 20px !important;
                     }
                     
                     /* Ensure input container stays visible */
@@ -2809,11 +2814,3 @@
             // Reapply on window resize
             window.addEventListener('resize', fixChatInput);
             
-            // Handle dynamic content changes
-            const observer = new MutationObserver(fixChatInput);
-            observer.observe(document.body, { childList: true, subtree: true });
-        })();
-    </script>
-
-</body>
-</html>
