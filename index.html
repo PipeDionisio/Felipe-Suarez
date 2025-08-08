@@ -2116,15 +2116,9 @@
             const initialMsg2 = document.getElementById('initial-msg-2');
             const typingIndicator = document.getElementById('typing-indicator');
             
-            // Show typing indicator first
+            // Show typing indicator first using proper function
             if (typingIndicator) {
-                typingIndicator.style.display = 'block';
-                scrollToBottom();
-                
-                // Show first message after typing (1s typing)
-                setTimeout(() => {
-                    typingIndicator.style.display = 'none';
-                    
+                showAutoTypingIndicator(() => {
                     if (initialMsg1) {
                         initialMsg1.classList.remove('hidden');
                         initialMsg1.style.opacity = '0';
@@ -2135,29 +2129,23 @@
                             scrollToBottom();
                         }, 100);
                     }
-                }, 1000);
+                }, 50);
                 
-                // Show typing indicator for second message (after 1.8s total)
+                // Show typing indicator for second message (after first message appears)
                 setTimeout(() => {
-                    typingIndicator.style.display = 'block';
-                    scrollToBottom();
+                    showAutoTypingIndicator(() => {
+                        if (initialMsg2) {
+                            initialMsg2.classList.remove('hidden');
+                            initialMsg2.style.opacity = '0';
+                            initialMsg2.style.transform = 'translateX(-30px)';
+                            initialMsg2.style.animation = 'slideInLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards';
+                            
+                            setTimeout(() => {
+                                scrollToBottom();
+                            }, 100);
+                        }
+                    }, 35);
                 }, 1800);
-                
-                // Show second message after typing (after 2.8s total)
-                setTimeout(() => {
-                    typingIndicator.style.display = 'none';
-                    
-                    if (initialMsg2) {
-                        initialMsg2.classList.remove('hidden');
-                        initialMsg2.style.opacity = '0';
-                        initialMsg2.style.transform = 'translateX(-30px)';
-                        initialMsg2.style.animation = 'slideInLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards';
-                        
-                        setTimeout(() => {
-                            scrollToBottom();
-                        }, 100);
-                    }
-                }, 2800);
             }
         }
 
@@ -2276,13 +2264,17 @@
                 }
                 
                 if (messageEl.classList.contains('received')) {
-                    // Show typing first
+                    // Show typing first for all Felipe messages
                     setTimeout(() => {
                         if (!userInterrupted && isAutoMode) {
                             showAutoTypingIndicator(() => {
                                 insertMessageInOrder(messageEl);
                                 currentMessageIndex++;
                             }, messageLength);
+                        } else if (userInterrupted) {
+                            // If interrupted, still show message but without typing
+                            insertMessageInOrder(messageEl);
+                            currentMessageIndex++;
                         }
                     }, messageTimeline);
                     
