@@ -2189,6 +2189,7 @@
         // Setup input event listeners
         function setupInputListeners() {
             const userInput = document.getElementById('user-input');
+            const sendBtn = document.getElementById('send-btn');
 
             userInput.addEventListener('input', function() {
                 const hasText = this.value.trim().length > 0;
@@ -2204,6 +2205,13 @@
                     sendUserMessage();
                 }
             });
+
+            // Add send button click handler
+            if (sendBtn) {
+                sendBtn.addEventListener('click', function() {
+                    sendUserMessage();
+                });
+            }
         }
 
         // Show typing indicator for automatic messages with realistic timing
@@ -2352,9 +2360,20 @@
                 if (currentMessageIndex < messageQueue.length) {
                     isAutoMode = true;
                     userInterrupted = false;
-                    setTimeout(() => {
-                        showNextMessage();
-                    }, 3000 + Math.random() * 2000);
+                    // Show typing indicator immediately, then continue with next message
+                    const nextMessageId = messageQueue[currentMessageIndex];
+                    const nextMessageEl = document.getElementById(nextMessageId);
+                    if (nextMessageEl && nextMessageEl.classList.contains('received')) {
+                        const messageText = nextMessageEl.textContent.trim();
+                        const messageLength = messageText.length;
+                        showAutoTypingIndicator(() => {
+                            showNextMessage();
+                        }, messageLength);
+                    } else {
+                        setTimeout(() => {
+                            showNextMessage();
+                        }, 1000 + Math.random() * 1000);
+                    }
                 }
             }, 2000);
         }
