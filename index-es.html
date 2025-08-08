@@ -2724,6 +2724,92 @@
                 showNextMessage();
             }, 1000);
         }
+
+        // Mobile chat input fix
+        (function() {
+            // Find the chat input element
+            const chatInput = document.querySelector('#message-input, input[type="text"], textarea, [contenteditable="true"]');
+            const chatContainer = document.querySelector('#messages-container, .chat-container, .chat-widget, .messages-container') || document.body;
+            
+            if (!chatInput) return;
+            
+            // Create styles for mobile fixes
+            const style = document.createElement('style');
+            style.textContent = `
+                @media (max-width: 768px) {
+                    /* Fix chat input positioning */
+                    .chat-input-fixed {
+                        position: fixed !important;
+                        bottom: 0 !important;
+                        left: 0 !important;
+                        right: 0 !important;
+                        z-index: 9999 !important;
+                        background: white !important;
+                        border-top: 1px solid #ddd !important;
+                        padding: 10px !important;
+                        box-shadow: 0 -2px 10px rgba(0,0,0,0.1) !important;
+                        box-sizing: border-box !important;
+                        width: 100vw !important;
+                        max-width: 100vw !important;
+                    }
+                    
+                    /* Add bottom padding to prevent message overlap */
+                    .chat-messages-padded {
+                        padding-bottom: 70px !important;
+                        box-sizing: border-box !important;
+                    }
+                    
+                    /* Ensure input is visible */
+                    .chat-input-fixed input,
+                    .chat-input-fixed textarea {
+                        width: 100% !important;
+                        border: 1px solid #ccc !important;
+                        padding: 10px !important;
+                        border-radius: 5px !important;
+                        outline: none !important;
+                        font-size: 16px !important; /* Prevents zoom on iOS */
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            function isMobile() {
+                return window.innerWidth <= 768;
+            }
+            
+            function fixChatInput() {
+                if (!isMobile()) {
+                    // Remove fixes on desktop
+                    chatInput.parentElement.classList.remove('chat-input-fixed');
+                    chatContainer.classList.remove('chat-messages-padded');
+                    return;
+                }
+                
+                // Apply mobile fixes
+                const inputContainer = chatInput.closest('div, form') || chatInput.parentElement;
+                inputContainer.classList.add('chat-input-fixed');
+                chatContainer.classList.add('chat-messages-padded');
+                
+                // Scroll input into view when focused
+                chatInput.addEventListener('focus', function() {
+                    setTimeout(() => {
+                        chatInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        // Extra scroll to account for mobile keyboards
+                        window.scrollBy(0, -50);
+                    }, 300);
+                });
+            }
+            
+            // Apply fixes immediately
+            fixChatInput();
+            
+            // Reapply on window resize
+            window.addEventListener('resize', fixChatInput);
+            
+            // Handle dynamic content changes
+            const observer = new MutationObserver(fixChatInput);
+            observer.observe(document.body, { childList: true, subtree: true });
+        })();
     </script>
 
 </body>
