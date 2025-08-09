@@ -2770,7 +2770,7 @@
                     
                     /* Add bottom padding to messages container */
                     .mobile-messages-padded {
-                        padding-bottom: 250px !important;
+                        padding-bottom: 200px !important;
                         box-sizing: border-box !important;
                     }
                     
@@ -2831,4 +2831,11 @@
             // Reapply on window resize
             window.addEventListener('resize', fixChatInput);
             
-            // Ha
+            // Handle dynamic content changes
+            const observer = new MutationObserver(fixChatInput);
+            observer.observe(document.body, { childList: true, subtree: true });
+        })();
+    </script>
+
+</body>
+</html>
