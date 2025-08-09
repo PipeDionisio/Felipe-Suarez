@@ -2790,11 +2790,6 @@
                     .typing-indicator {
                         margin-bottom: 50px !important;
                     }
-                    
-                    /* Fix specific message that appears behind input */
-                    #msg-2 {
-                        margin-bottom: 80px !important;
-                    }
                 }
             `;
             document.head.appendChild(style);
@@ -2821,7 +2816,7 @@
                 
                 // Scroll input into view when focused (only add listener once)
                 if (!chatInput.dataset.mobileFixApplied) {
-                    chatInput.addEventListener('focus', function() {9:18 PM 8/8/2025
+                    chatInput.addEventListener('focus', function() {
                         setTimeout(() => {
                             inputArea.scrollIntoView({ behavior: 'smooth', block: 'end' });
                         }, 300);
