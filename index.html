@@ -1086,7 +1086,7 @@
         /* Input Area */
         .input-area {
             padding: 20px 24px;
-            background: #ffffff !important;
+            background: #ffffff00 !important;
             border-top: 0px solid rgb(0 0 0 / 0%);
         }
 
@@ -2793,7 +2793,7 @@
                     
                     /* Fix specific message that appears behind input */
                     #msg-2 {
-                        margin-bottom: 200px !important;
+                        margin-bottom: 80px !important;
                     }
                 }
             `;
@@ -2821,7 +2821,7 @@
                 
                 // Scroll input into view when focused (only add listener once)
                 if (!chatInput.dataset.mobileFixApplied) {
-                    chatInput.addEventListener('focus', function() {
+                    chatInput.addEventListener('focus', function() {9:18 PM 8/8/2025
                         setTimeout(() => {
                             inputArea.scrollIntoView({ behavior: 'smooth', block: 'end' });
                         }, 300);
