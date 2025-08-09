@@ -1086,7 +1086,7 @@
         /* Input Area */
         .input-area {
             padding: 20px 24px;
-            background: #ffffff00 !important;
+            background: #ffffff !important;
             border-top: 0px solid rgb(0 0 0 / 0%);
         }
 
@@ -2327,12 +2327,12 @@
                 messageEl.style.animation = 'slideInRight 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards';
             }
             
-            // Immediate scroll for msg-2, delayed for others
-            if (messageEl.id === 'msg-2') {
+            // Immediate scroll for msg-1 and msg-2, delayed for others
+            if (messageEl.id === 'msg-1' || messageEl.id === 'msg-2') {
                 // Scroll immediately to position msg-2 bottom edge near input
                 const container = document.getElementById('messages-container');
                 setTimeout(() => {
-                    container.scrollTop = container.scrollHeight - 50;
+                    container.scrollTop = container.scrollHeight - 200;
                 }, 50);
             }
             
@@ -2775,7 +2775,7 @@
                         left: 0 !important;
                         right: 0 !important;
                         z-index: 9999 !important;
-                        background: #ffffff00 !important;
+                        background: #ffffff !important;
                         border-top: 1px solid #dddddd00 !important;
                         box-shadow: 0 -2px 10px rgb(0 0 0 / 0%) !important;
                         margin: 0 !important;
@@ -2783,7 +2783,7 @@
                     
                     /* Add bottom padding to messages container */
                     .mobile-messages-padded {
-                        padding-bottom: 200px !important;
+                        padding-bottom: 80px !important;
                         box-sizing: border-box !important;
                     }
                     
@@ -2801,7 +2801,7 @@
                     
                     /* Ensure typing indicator appears above input on mobile */
                     .typing-indicator {
-                        margin-bottom: 50px !important;
+                        margin-bottom: 20px !important;
                     }
                     
                     /* Add transparent spacer after msg-2 */
