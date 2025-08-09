@@ -2775,7 +2775,7 @@
                         left: 0 !important;
                         right: 0 !important;
                         z-index: 10000 !important;
-                        background: #ffffff00 !important;
+                        background: rgba(255,255,255,0.95) !important;
                         border-top: 1px solid #dddddd00 !important;
                         box-shadow: 0 -2px 10px rgb(0 0 0 / 0%) !important;
                         margin: 0 !important;
@@ -2857,4 +2857,10 @@
             window.addEventListener('resize', fixChatInput);
             
             // Handle dynamic content changes
-            const
+            const observer = new MutationObserver(fixChatInput);
+            observer.observe(document.body, { childList: true, subtree: true });
+        })();
+    </script>
+
+</body>
+</html>
