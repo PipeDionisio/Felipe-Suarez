@@ -2447,7 +2447,11 @@
             // Additional scroll for mobile to ensure it reaches the bottom
             setTimeout(() => {
                 container.scrollTop = container.scrollHeight;
-            }, 80);
+                // Extra scroll to account for mobile margins
+                if (window.innerWidth <= 768) {
+                    container.scrollTop = container.scrollHeight + 50;
+                }
+            }, 100);
         }
 
         // Initialize scroll detection
