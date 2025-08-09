@@ -2329,7 +2329,7 @@
             
             setTimeout(() => {
                 scrollToBottom();
-            }, 100);
+            }, 500);
         }
 
         // Send user message (no server connection - just display and continue automatic chat)
@@ -2441,10 +2441,13 @@
         function scrollToBottom() {
             if (!autoScrollEnabled) return;
             
+            const container = document.getElementById('messages-container');
+            container.scrollTop = container.scrollHeight;
+            
+            // Additional scroll for mobile to ensure it reaches the bottom
             setTimeout(() => {
-                const container = document.getElementById('messages-container');
                 container.scrollTop = container.scrollHeight;
-            }, 100);
+            }, 80);
         }
 
         // Initialize scroll detection
