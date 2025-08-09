@@ -2327,6 +2327,15 @@
                 messageEl.style.animation = 'slideInRight 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards';
             }
             
+            // Immediate scroll for msg-2, delayed for others
+            if (messageEl.id === 'msg-2') {
+                // Scroll immediately to position msg-2 bottom edge near input
+                const container = document.getElementById('messages-container');
+                setTimeout(() => {
+                    container.scrollTop = container.scrollHeight - 50;
+                }, 50);
+            }
+            
             setTimeout(() => {
                 scrollToBottom();
             }, 500);
@@ -2761,7 +2770,7 @@
                 @media (max-width: 768px) {
                     /* Fix input area positioning */
                     .mobile-input-fixed {
-                        position: fixed !important;
+                        position: absolute;
                         bottom: 0 !important;
                         left: 0 !important;
                         right: 0 !important;
@@ -2793,6 +2802,15 @@
                     /* Ensure typing indicator appears above input on mobile */
                     .typing-indicator {
                         margin-bottom: 50px !important;
+                    }
+                    
+                    /* Add transparent spacer after msg-2 */
+                    #msg-2::after {
+                        content: '';
+                        display: block;
+                        height: 150px;
+                        width: 100%;
+                        background: transparent;
                     }
                 }
             `;
