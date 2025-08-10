@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+const userLang = (navigator.language || navigator.userLanguage).toLowerCase();
+const targetUrl = userLang.startsWith('es')
+  ? 'https://pipedionisio.github.io/Felipe-Suarez/index-es.html'
+  : 'https://pipedionisio.github.io/Felipe-Suarez/index.html';
+
+if (location.href !== targetUrl) {
+  location.replace(targetUrl);
+}
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Felipe Suarez - Messenger</title>
