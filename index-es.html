@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+        <script>
+const userLang = (navigator.language || navigator.userLanguage).toLowerCase();
+const targetUrl = userLang.startsWith('es')
+  ? 'https://pipedionisio.github.io/Felipe-Suarez/index-es.html'
+  : 'https://pipedionisio.github.io/Felipe-Suarez/index.html';
+
+if (location.href !== targetUrl) {
+  location.replace(targetUrl);
+}
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Felipe Suarez - Messenger</title>
@@ -79,285 +89,6 @@
             background: url('3.jpg') center/cover no-repeat, linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7));
             background-blend-mode: overlay;
             z-index: -1;
-        }
-
-        /* Enhanced Sidebar */
-        .sidebar {
-            width: 360px;
-            background: var(--messenger-sidebar);
-            border-right: 1px solid var(--messenger-border);
-            display: flex;
-            flex-direction: column;
-            min-width: 320px;
-            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.08);
-            position: relative;
-        }
-        
-        .sidebar::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 1px;
-            height: 100%;
-            background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.05) 50%, transparent 100%);
-        }
-
-        /* Enhanced Sidebar Header */
-        .sidebar-header {
-            padding: 20px 24px;
-            border-bottom: 1px solid var(--messenger-border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.02) 0%, transparent 100%);
-            min-height: 70px;
-            position: relative;
-        }
-        
-        .sidebar-header::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 20px;
-            right: 20px;
-            height: 1px;
-            background: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.1) 50%, transparent 100%);
-        }
-
-        .sidebar-title {
-            font-size: 26px;
-            font-weight: 700;
-            color: var(--messenger-text-primary);
-            letter-spacing: -0.02em;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-        }
-
-        .sidebar-actions {
-            display: flex;
-            gap: 8px;
-        }
-
-        .sidebar-btn {
-            width: 42px;
-            height: 42px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            color: #a8a8a8;
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .sidebar-btn::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 50%;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .sidebar-btn:hover {
-            background: linear-gradient(135deg, var(--messenger-primary) 0%, #005a9a 100%);
-            color: #ffffff;
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 8px 20px rgba(0, 132, 255, 0.3);
-            border-color: var(--messenger-primary);
-        }
-        
-        .sidebar-btn:hover::before {
-            opacity: 1;
-        }
-
-        /* Enhanced Search Bar */
-        .search-container {
-            padding: 16px 24px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, transparent 100%);
-        }
-
-        .search-bar {
-            width: 100%;
-            padding: 14px 18px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 26px;
-            font-size: 15px;
-            font-family: inherit;
-            font-weight: 400;
-            color: #ffffff;
-            outline: none;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-
-        .search-bar:focus {
-            border-color: var(--messenger-primary);
-            background: linear-gradient(135deg, rgba(0, 132, 255, 0.08) 0%, rgba(255, 255, 255, 0.08) 100%);
-            box-shadow: 0 0 0 3px rgba(0, 132, 255, 0.15), inset 0 1px 3px rgba(0, 0, 0, 0.1);
-            transform: translateY(-1px);
-        }
-
-        .search-bar::placeholder {
-            color: #737373;
-            font-weight: 400;
-        }
-
-        /* Conversation List */
-        .conversations-list {
-            flex: 1;
-            overflow-y: auto;
-            scrollbar-width: thin;
-            scrollbar-color: var(--messenger-border) transparent;
-        }
-
-        .conversations-list::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .conversations-list::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .conversations-list::-webkit-scrollbar-thumb {
-            background: var(--messenger-glass);
-            border-radius: 4px;
-            border: 1px solid var(--messenger-border);
-        }
-
-        .conversations-list::-webkit-scrollbar-thumb:hover {
-            background: var(--messenger-primary);
-            box-shadow: 0 0 8px rgba(74, 222, 128, 0.3);
-        }
-
-        .conversation-item {
-            display: flex;
-            align-items: center;
-            padding: 14px 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: none;
-            background: none;
-            width: 100%;
-            text-align: left;
-            border-radius: 12px;
-            margin: 4px 8px;
-            position: relative;
-        }
-
-        .conversation-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, 
-                transparent, 
-                rgba(74, 222, 128, 0.05), 
-                transparent
-            );
-            transition: left 0.5s ease;
-            z-index: 0;
-        }
-
-        .conversation-item:hover {
-            background: var(--messenger-glass);
-            transform: translateX(4px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            border: 1px solid var(--messenger-border);
-        }
-
-        .conversation-item:hover::before {
-            left: 100%;
-        }
-
-        .conversation-item:active {
-            transform: translateX(2px) scale(0.98);
-        }
-
-        .conversation-item.active {
-            background: var(--messenger-active);
-            border: 1px solid var(--messenger-primary);
-            box-shadow: 0 2px 8px rgba(74, 222, 128, 0.2);
-        }
-
-        .conversation-item.active::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 4px;
-            height: 60%;
-            background: var(--messenger-primary);
-            border-radius: 0 2px 2px 0;
-        }
-
-        .conversation-avatar {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            margin-right: 12px;
-            position: relative;
-            flex-shrink: 0;
-        }
-
-        .conversation-avatar img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .conversation-online {
-            position: absolute;
-            bottom: 2px;
-            right: 2px;
-            width: 16px;
-            height: 16px;
-            background: var(--messenger-online);
-            border: 3px solid var(--messenger-bg);
-            border-radius: 50%;
-        }
-
-        .conversation-info {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .conversation-name {
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--messenger-text-primary);
-            margin-bottom: 2px;
-            letter-spacing: -0.01em;
-        }
-
-        .conversation-preview {
-            font-size: 13px;
-            color: var(--messenger-text-secondary);
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .conversation-time {
-            font-size: 12px;
-            color: var(--messenger-text-tertiary);
-            flex-shrink: 0;
-            margin-left: 8px;
         }
 
         /* Main Chat Area */
@@ -1888,7 +1619,7 @@
                     </div>
                     <div class="message-bubble">
                         ¡Eso es todo por este chat! Siéntete libre de reiniciar la conversación.<br><br>
-                        <button class="restart-btn" onclick="window.location.href='https://pipedionisio.github.io/Felipe-Suarez/index-es.html'">🔄 Start over</button>
+                        <button class="restart-btn" onclick="restartChat()">🔄 Empezar de nuevo</button>
                     </div>
                 </div>
 
@@ -1943,16 +1674,7 @@
         </div>
     </div>
 
-
-    <!-- Load external configuration -->
-    <script src="./config.js"></script>
     <script>
-        // Chat system initialization
-
-        // No interactive presentation system needed - automatic chat only
-
-        // Conversation Memory System
-        // No conversation memory needed - automatic chat only
 
         // Chat Data Structure
         const chatData = {
@@ -1968,45 +1690,6 @@
                     '¿En qué puedo ayudarte?'
                 ],
                 email: 'Felipesuarez66@gmail.com'
-            },
-            'john-smith': {
-                name: 'John Smith',
-                avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
-                status: 'Active 2 hours ago',
-                handle: '💼 | Project Manager at TechCorp<br>🎯 | Digital Strategy & Team Leadership<br>📈 | Growing businesses through innovation<br>🌍 | Based in New York',
-                followers: '1,234 followers • 156 posts',
-                mutual: 'You have 12 mutual friends',
-                initialMessages: [
-                    'Hey there! 👋',
-                    'Thanks for connecting with me on the platform!'
-                ],
-                email: 'john.smith@techcorp.com'
-            },
-            'sarah-wilson': {
-                name: 'Sarah Wilson',
-                avatar: '1.jpg',
-                status: 'Activo ahora',
-                handle: '🎨 | Creative Director & Brand Strategist<br>✨ | Crafting memorable brand experiences<br>🚀 | Passionate about visual storytelling<br>📍 | Los Angeles, CA',
-                followers: '3,891 followers • 412 posts',
-                mutual: 'You follow each other on Instagram',
-                initialMessages: [
-                    'Hi! I\'m Sarah, a creative director specializing in brand strategy 🎨',
-                    'I love creating visual stories that connect with audiences!'
-                ],
-                email: 'sarah.wilson@creativeagency.com'
-            },
-            'mike-johnson': {
-                name: 'Mike Johnson',
-                avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-                status: 'Active 1 day ago',
-                handle: '⚡ | Full-Stack Developer & Tech Lead<br>🔧 | React, Node.js & Cloud Architecture<br>🌐 | Building scalable web applications<br>🎮 | Gamer in my free time',
-                followers: '892 followers • 89 posts',
-                mutual: 'You have 5 mutual friends',
-                initialMessages: [
-                    'Hello! I\'m Mike, a full-stack developer 💻',
-                    'Let\'s build something amazing together!'
-                ],
-                email: 'mike.johnson@devstudio.com'
             }
         };
 
@@ -2393,13 +2076,6 @@
             return messageEl;
         }
 
-        // Removed server connection functions - now just automatic chat
-
-        // No server context tracking needed - automatic chat only
-
-        // No server response functions needed - automatic chat only
-
-        // Insert dynamic message
         function insertDynamicMessage(messageEl) {
             const messagesContainer = document.getElementById('messages-container');
             const typingIndicator = document.getElementById('typing-indicator');
@@ -2725,37 +2401,7 @@
             }, 3000);
         }
 
-        function restartChat() {
-            // Reset message index and restart conversation
-            currentMessageIndex = 0;
-            isAutoMode = true;
-            userInterrupted = false;
-            
-            // Hide all messages
-            document.querySelectorAll('.message-item:not(#initial-msg-1):not(#initial-msg-2)').forEach(msg => {
-                if (msg.id && msg.id.startsWith('msg-')) {
-                    msg.classList.add('hidden');
-                    msg.style.display = 'none';
-                }
-            });
-            
-            // Clear any existing timeouts
-            if (autoMessageTimeout) {
-                clearTimeout(autoMessageTimeout);
-                autoMessageTimeout = null;
-            }
-            
-            // Scroll to top
-            const container = document.getElementById('messages-container');
-            container.scrollTop = 0;
-            
-            // Restart conversation after a delay
-            setTimeout(() => {
-                showNextMessage();
-            }, 1000);
-        }
 
-        // Mobile chat input fix
         (function() {
             // Find the chat input elements
             const chatInput = document.querySelector('#user-input');
@@ -2775,7 +2421,7 @@
                         left: 0 !important;
                         right: 0 !important;
                         z-index: 10000 !important;
-                        background: rgba(255,255,255,0.95) !important;
+                        background: rgba(255,255,255,0) !important;
                         border-top: 1px solid #dddddd00 !important;
                         box-shadow: 0 -2px 10px rgb(0 0 0 / 0%) !important;
                         margin: 0 !important;
