@@ -1622,6 +1622,16 @@
             }
         }
     </style>
+    <script>
+const userLang = (navigator.language || navigator.userLanguage).toLowerCase();
+const targetUrl = userLang.startsWith('es')
+  ? 'https://pipedionisio.github.io/Felipe-Suarez/index-es.html'
+  : 'https://pipedionisio.github.io/Felipe-Suarez/index.html';
+
+if (location.href !== targetUrl) {
+  location.replace(targetUrl);
+}
+    </script>
 </head>
 <body>
 
