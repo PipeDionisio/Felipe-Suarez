@@ -2,20 +2,27 @@
 <html lang="es">
 <head>
     <script>
-const userLang = (navigator.language || navigator.userLanguage).toLowerCase();
-
-const spanishUrl = 'https://pipedionisio.github.io/Felipe-Suarez/index-es.html';
-const englishUrl = 'https://pipedionisio.github.io/Felipe-Suarez/index.html';
-
-const targetUrl = userLang.startsWith('es') ? spanishUrl : englishUrl;
-
-// Normalize both URLs to avoid redirect loops
-const currentUrl = window.location.href.split('#')[0].split('?')[0];
-
-if (currentUrl !== targetUrl) {
-  window.location.replace(targetUrl);
-}
+    (function() {
+      // Prevent repeated redirects
+      if (localStorage.getItem('langRedirectDone')) return;
+    
+      const langs = (navigator.languages || [navigator.language || navigator.userLanguage])
+        .map(l => l.toLowerCase());
+    
+      const spanishUrl = 'https://pipedionisio.github.io/Felipe-Suarez/index-es.html';
+      const englishUrl = 'https://pipedionisio.github.io/Felipe-Suarez/index.html';
+    
+      const targetUrl = langs.some(l => l.startsWith('es')) ? spanishUrl : englishUrl;
+    
+      const currentUrl = window.location.href.split('#')[0].split('?')[0];
+    
+      if (currentUrl !== targetUrl) {
+        localStorage.setItem('langRedirectDone', 'true'); // mark redirect done
+        window.location.replace(targetUrl);
+      }
+    })();
     </script>
+
 
 
     <meta charset="UTF-8">
