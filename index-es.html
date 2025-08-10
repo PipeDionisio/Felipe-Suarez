@@ -2,21 +2,25 @@
 <html lang="es">
 <head>
     <script>
-// Show loading screen first
-document.documentElement.innerHTML = '<head><style>body{margin:0;font-family:Inter,sans-serif}.loading-screen{position:fixed;top:0;left:0;width:100vw;height:100vh;background:#fff;display:flex;align-items:center;justify-content:center;z-index:9999}.loading-content{text-align:center}.loading-logo{font-size:48px;margin-bottom:20px}.loading-text{font-size:18px;color:#666;margin-bottom:20px}.loading-bar{width:200px;height:4px;background:#f0f0f0;border-radius:2px;overflow:hidden}.loading-progress{height:100%;background:#0077b5;border-radius:2px;animation:loadingProgress 2s ease-in-out infinite}@keyframes loadingProgress{0%{width:0}50%{width:80%}100%{width:100%}}</style></head><body><div class="loading-screen"><div class="loading-content"><div class="loading-logo">💬</div><div class="loading-text">Loading Messenger...</div><div class="loading-bar"><div class="loading-progress"></div></div></div></div></body>';
-
-const userLang = (navigator.language || navigator.userLanguage).toLowerCase();
-const targetUrl = userLang.startsWith('es')
-  ? 'https://pipedionisio.github.io/Felipe-Suarez/index-es.html'
-  : 'https://pipedionisio.github.io/Felipe-Suarez/index.html';
-
-setTimeout(() => {
-  if (location.href !== targetUrl) {
-    location.replace(targetUrl);
-  }
-}, 1500);
-    </script>
-
+    (function() {
+      // Prevent repeated redirects
+      if (localStorage.getItem('langRedirectDone')) return;
+    
+      const langs = (navigator.languages || [navigator.language || navigator.userLanguage])
+        .map(l => l.toLowerCase());
+    
+      const spanishUrl = 'https://pipedionisio.github.io/Felipe-Suarez/index-es.html';
+      const englishUrl = 'https://pipedionisio.github.io/Felipe-Suarez/index.html';
+    
+      const targetUrl = langs.some(l => l.startsWith('es')) ? spanishUrl : englishUrl;
+    
+      const currentUrl = window.location.href.split('#')[0].split('?')[0];
+    
+      if (currentUrl !== targetUrl) {
+        localStorage.setItem('langRedirectDone', 'true'); // mark redirect done
+        window.location.replace(targetUrl);
+      }
+    })();
 
 
     <meta charset="UTF-8">
