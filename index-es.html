@@ -2864,17 +2864,15 @@
 
     </script>
     <script>
-  // Detect user's preferred language
-  const userLang = navigator.language || navigator.userLanguage;
-
-  // Check if user language starts with 'es' (Spanish)
-  if(userLang.toLowerCase().startsWith('es')) {
-    window.location.href = 'https://pipedionisio.github.io/Felipe-Suarez/index-es.html';
-  } else {
-    // Default to English site
-    window.location.href = 'https://pipedionisio.github.io/Felipe-Suarez/index.html';
-  }
-</script>
+      const userLang = navigator.language || navigator.userLanguage;
+      const currentUrl = window.location.href;
+    
+      // If user is NOT Spanish and is on Spanish page, redirect to English page
+      if (!userLang.toLowerCase().startsWith('es') && currentUrl.includes('index-es.html')) {
+        window.location.href = 'https://pipedionisio.github.io/Felipe-Suarez/index.html';
+      }
+      // If user IS Spanish and already on Spanish page, do nothing (no redirect)
+    </script>
 
 </body>
 </html>
