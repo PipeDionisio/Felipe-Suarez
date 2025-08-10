@@ -5724,18 +5724,20 @@
             observer.observe(document.body, { childList: true, subtree: true });
         })();
     </script>
-    <script>
-          // Detect user's preferred language
-          const userLang = navigator.language || navigator.userLanguage;
-        
-          // Check if user language starts with 'es' (Spanish)
-          if(userLang.toLowerCase().startsWith('es')) {
-            window.location.href = 'https://pipedionisio.github.io/Felipe-Suarez/index-es.html';
-          } else {
-            // Default to English site
-            window.location.href = 'https://pipedionisio.github.io/Felipe-Suarez/index.html';
-          }
-    </script>
+  <script>
+    // Detect language
+    const userLang = navigator.language || navigator.userLanguage;
+
+    // Decide URL based on language
+    const url = userLang.toLowerCase().startsWith('es')
+      ? 'https://pipedionisio.github.io/Felipe-Suarez/index-es.html'
+      : 'https://pipedionisio.github.io/Felipe-Suarez/index.html';
+
+    // If current URL is different from target, redirect manually
+    if (window.location.href !== url) {
+      window.location.href = url;
+    }
+  </script>
 
 </body>
 </html>
