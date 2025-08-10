@@ -581,7 +581,7 @@
         .messages-container {
             flex: 1;
             overflow-y: auto;
-            padding: 20px 20px 90px 20px;
+            padding: 20px 20px 25px 20px;
             display: flex;
             flex-direction: column;
             gap: 8px;
@@ -1086,7 +1086,7 @@
         /* Input Area */
         .input-area {
             padding: 20px 24px;
-            background: #ffffff !important;
+            background: #ffffff00 !important;
             border-top: 0px solid rgb(0 0 0 / 0%);
         }
 
@@ -2458,7 +2458,7 @@
                 container.scrollTop = container.scrollHeight;
                 // Extra scroll to account for mobile margins
                 if (window.innerWidth <= 768) {
-                    container.scrollTop = container.scrollHeight + 200;
+                    container.scrollTop = container.scrollHeight + 50;
                 }
             }, 100);
         }
@@ -2815,7 +2815,6 @@
                         width: 100%;
                         background: transparent;
                     }
-                    }
                 }
             `;
             document.head.appendChild(style);
@@ -2862,16 +2861,6 @@
             observer.observe(document.body, { childList: true, subtree: true });
         })();
 
-    </script>
-    <script>
-      const userLang = navigator.language || navigator.userLanguage;
-      const currentUrl = window.location.href;
-    
-      // If user is NOT Spanish and is on Spanish page, redirect to English page
-      if (!userLang.toLowerCase().startsWith('es') && currentUrl.includes('index-es.html')) {
-        window.location.href = 'https://pipedionisio.github.io/Felipe-Suarez/index.html';
-      }
-      // If user IS Spanish and already on Spanish page, do nothing (no redirect)
     </script>
 
 </body>
