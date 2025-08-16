@@ -2578,39 +2578,40 @@
   }
 
   // Send message to webhook and get reply
-  function sendToWebhook(message) {
-    const webhookData = {
-      message: message,
-      sessionId: sessionId,
-      timestamp: new Date().toISOString(),
-      source: "chat",
-      url: window.location.href,
-      userAgent: navigator.userAgent
-    };
+    function sendToWebhook(message) {
+      const webhookData = {
+        message: message,
+        sessionId: sessionId,
+        timestamp: new Date().toISOString(),
+        source: "chat",
+        url: window.location.href,
+        userAgent: navigator.userAgent
+      };
+    
+      return fetch("https://c45fe4e37ba0.ngrok-free.app/webhook/4eb21d65-6dfe-4816-88cf-323664347d0d", {
+        method: "POST",
+        mode: "cors",                // CORS required
+        credentials: "include",      // 🔑 allow cookies to be set/sent
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          "ngrok-skip-browser-warning": "true"
+        },
+        body: JSON.stringify(webhookData)
+      })
+      .then(response => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json();
+      })
+      .then(data => {
+        console.log("Webhook response:", data);
+        if (data && typeof data === "object") {
+          return data.output || data.reply || JSON.stringify(data);
+        }
+        return String(data);
+      });
+    }
 
-    return fetch("https://c45fe4e37ba0.ngrok-free.app/webhook/4eb21d65-6dfe-4816-88cf-323664347d0d", {
-      method: "POST",
-      mode: "cors",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-        "ngrok-skip-browser-warning": "true"
-      },
-      body: JSON.stringify(webhookData)
-    })
-    .then(response => {
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      return response.json();
-    })
-    .then(data => {
-      console.log("Webhook response:", data);
-      if (data && typeof data === "object") {
-        return data.output || data.reply || JSON.stringify(data);
-      }
-      return String(data);
-    });
-  }
 
   // Typing indicator with timeout safety
   function showTypingIndicator() {
