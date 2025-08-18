@@ -1537,16 +1537,17 @@
                     </div>
                 </div>
 
+                <!-- REEMPLAZAR msg-9 existente con: -->
                 <div class="message-item received hidden" id="msg-9">
                     <div class="message-avatar">
                         <img src="1.jpg" alt="Felipe Suarez">
                     </div>
                     <div class="message-bubble">
-                        Puedes seguirme en:<br><br>
-                        <strong>LinkedIn</strong><br>
-                        <strong>GitHub</strong><br>
-                        <strong>Instagram</strong><br><br>
-                        Ahí puedes ver mis proyectos y volver cuando quieras.
+                        <div class="contact-buttons">
+                            <a href="https://x.com/Juanfelipe19980" target="_blank" class="contact-btn x-btn">X</a>
+                            <a href="https://www.linkedin.com/in/felipe-suarez-12ab2622b" target="_blank" class="contact-btn linkedin-btn">LinkedIn</a>
+                            <a href="https://github.com/PipeDionisio" target="_blank" class="contact-btn github-btn">GitHub</a>
+                        </div>
                     </div>
                 </div>
 
@@ -2562,7 +2563,6 @@
 
     return fetch("https://d0c44dd2c237.ngrok-free.app/webhook/4eb21d65-6dfe-4816-88cf-323664347d0d", {
       method: "POST",
-      mode: "cors",
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json",
