@@ -10,19 +10,10 @@
       },
       "type": "n8n-nodes-base.gmailTool",
       "typeVersion": 2.1,
-      "position": [
-        -96,
-        256
-      ],
+      "position": [-96, 256],
       "id": "27658576-5cad-4d59-b483-1dcc4b0c2679",
       "name": "Send a message in Gmail",
-      "webhookId": "3de98f8a-ce10-4607-882f-69bbba213c0f",
-      "credentials": {
-        "gmailOAuth2": {
-          "id": "agOOw8htBIvAi1DZ",
-          "name": "Gmail account"
-        }
-      }
+      "webhookId": "3de98f8a-ce10-4607-882f-69bbba213c0f"
     },
     {
       "parameters": {
@@ -48,19 +39,10 @@
       },
       "type": "n8n-nodes-base.gmailTool",
       "typeVersion": 2.1,
-      "position": [
-        64,
-        320
-      ],
+      "position": [64, 320],
       "id": "a5d3e3f5-2980-401a-b5ae-1a6044a95db7",
       "name": "Reply to a message in Gmail",
-      "webhookId": "3d5e2588-7fbb-4e68-8c55-a29556986671",
-      "credentials": {
-        "gmailOAuth2": {
-          "id": "agOOw8htBIvAi1DZ",
-          "name": "Gmail account"
-        }
-      }
+      "webhookId": "3d5e2588-7fbb-4e68-8c55-a29556986671"
     },
     {
       "parameters": {
@@ -70,19 +52,10 @@
       },
       "type": "n8n-nodes-base.gmailTool",
       "typeVersion": 2.1,
-      "position": [
-        240,
-        352
-      ],
+      "position": [240, 352],
       "id": "9758805f-2258-4e62-8544-c583b70f7e79",
       "name": "Add label to message in Gmail",
-      "webhookId": "352509ca-1398-4a51-8928-7688bb3d71c1",
-      "credentials": {
-        "gmailOAuth2": {
-          "id": "agOOw8htBIvAi1DZ",
-          "name": "Gmail account"
-        }
-      }
+      "webhookId": "352509ca-1398-4a51-8928-7688bb3d71c1"
     },
     {
       "parameters": {
@@ -101,210 +74,4 @@
             ]
           },
           "threadId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Thread_ID', ``, 'string') }}",
-          "sendTo": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('To_Email', ``, 'string') }}"
-        }
-      },
-      "type": "n8n-nodes-base.gmailTool",
-      "typeVersion": 2.1,
-      "position": [
-        384,
-        320
-      ],
-      "id": "29380b91-f4db-4cd8-979e-cf27baa3cdc3",
-      "name": "Create a draft in Gmail",
-      "webhookId": "2b2723b7-0e6b-4650-8e33-beec499e2ac2",
-      "credentials": {
-        "gmailOAuth2": {
-          "id": "agOOw8htBIvAi1DZ",
-          "name": "Gmail account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "getAll",
-        "returnAll": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Return_All', ``, 'boolean') }}",
-        "simple": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Simplify', ``, 'boolean') }}",
-        "filters": {
-          "includeSpamTrash": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Include_Spam_and_Trash', ``, 'boolean') }}",
-          "labelIds": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Label_Names_or_IDs', ``, 'string') }}",
-          "q": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Search', ``, 'string') }}",
-          "sender": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Sender', ``, 'string') }}"
-        },
-        "options": {
-          "dataPropertyAttachmentsPrefixName": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Attachment_Prefix', ``, 'string') }}",
-          "downloadAttachments": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Download_Attachments', ``, 'boolean') }}"
-        }
-      },
-      "type": "n8n-nodes-base.gmailTool",
-      "typeVersion": 2.1,
-      "position": [
-        544,
-        256
-      ],
-      "id": "bd72c0a1-638a-450b-b383-f12434641edd",
-      "name": "Get many messages in Gmail",
-      "webhookId": "272dd59e-6740-411f-9158-1963c8da5181",
-      "credentials": {
-        "gmailOAuth2": {
-          "id": "agOOw8htBIvAi1DZ",
-          "name": "Gmail account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "resource": "label",
-        "returnAll": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Return_All', ``, 'boolean') }}"
-      },
-      "type": "n8n-nodes-base.gmailTool",
-      "typeVersion": 2.1,
-      "position": [
-        640,
-        112
-      ],
-      "id": "537a0580-9ea4-4afe-af8b-987f043f0861",
-      "name": "Get many labels in Gmail",
-      "webhookId": "e1e5a43b-0389-4305-9c15-4f5d0abf1bc3",
-      "credentials": {
-        "gmailOAuth2": {
-          "id": "agOOw8htBIvAi1DZ",
-          "name": "Gmail account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "markAsUnread",
-        "messageId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message_ID', ``, 'string') }}"
-      },
-      "type": "n8n-nodes-base.gmailTool",
-      "typeVersion": 2.1,
-      "position": [
-        -208,
-        112
-      ],
-      "id": "399b9ba4-44ee-4238-9bb3-9d4391664a5f",
-      "name": "Mark a message as unread in Gmail",
-      "webhookId": "99fc5a33-7576-4a8f-a591-d066392237b0",
-      "credentials": {
-        "gmailOAuth2": {
-          "id": "agOOw8htBIvAi1DZ",
-          "name": "Gmail account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "path": "a34e27e7-ee1e-4796-9826-c9b0203e881b"
-      },
-      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
-      "typeVersion": 2,
-      "position": [
-        0,
-        0
-      ],
-      "id": "16c5de79-fe3f-4aa6-8f4b-29dbdfdd4f34",
-      "name": "Asistente Gmail",
-      "webhookId": "a34e27e7-ee1e-4796-9826-c9b0203e881b"
-    }
-  ],
-  "pinData": {},
-  "connections": {
-    "Send a message in Gmail": {
-      "ai_tool": [
-        [
-          {
-            "node": "Asistente Gmail",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Reply to a message in Gmail": {
-      "ai_tool": [
-        [
-          {
-            "node": "Asistente Gmail",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Add label to message in Gmail": {
-      "ai_tool": [
-        [
-          {
-            "node": "Asistente Gmail",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Create a draft in Gmail": {
-      "ai_tool": [
-        [
-          {
-            "node": "Asistente Gmail",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Get many messages in Gmail": {
-      "ai_tool": [
-        [
-          {
-            "node": "Asistente Gmail",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Get many labels in Gmail": {
-      "ai_tool": [
-        [
-          {
-            "node": "Asistente Gmail",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Mark a message as unread in Gmail": {
-      "ai_tool": [
-        [
-          {
-            "node": "Asistente Gmail",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
-      ]
-    }
-  },
-  "active": true,
-  "settings": {
-    "executionOrder": "v1"
-  },
-  "versionId": "dda19136-5c79-4206-8fd4-1007262fd9ce",
-  "meta": {
-    "templateCredsSetupCompleted": true,
-    "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
-  },
-  "id": "DgOio2kWX5qraXub",
-  "tags": [
-    {
-      "createdAt": "2025-08-18T18:46:25.667Z",
-      "updatedAt": "2025-08-18T18:46:25.667Z",
-      "id": "7CEdcgycivvTD820",
-      "name": "MCP"
-    }
-  ]
-}
+          "sendTo": "={{ /*n8n-auto-generated-fromAI-override*/ $f
