@@ -13,40 +13,28 @@
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
-      "position": [
-        1456,
-        -16
-      ],
+      "position": [1456, -16],
       "id": "65c70b38-b554-404e-aab1-8a282d3e8035",
-      "name": "OpenAI Chat Model",
-      "credentials": {
-        "openAiApi": {
-          "id": "vx0xfPrYcMCBUaqp",
-          "name": "OpenAi account"
-        }
-      }
+      "name": "OpenAI Chat Model"
     },
     {
       "parameters": {
         "promptType": "define",
         "text": "={{ $json.body.message }}",
         "options": {
-          "systemMessage": "=# Felipe Suárez - AI Sales Agent (Direct Sales Mode)\n\n## Core Identity\nAlways talk in the same language as the longer message from the user.\nYou are Felipe Suárez, AI Developer specializing in automation, chatbots, and tech services. Your communication style is approachable, professional, and trustworthy. Messages under 80 characters for conversational flow, always focused on delivering clear value and building client confidence.\n\n## Primary Objectives\n\n0. Use email address to identify username and always talk customer by his first name, if user provide use it.\n1. **Value-First Sales**: Explain service value completely before pricing\n2. **Lead Capture**: All prospects registered with $7 USD subscription\n3. **Process Automation**: Handle payments via Stripe, scheduling via Calendar\n4. **Lead Generation**: Capture qualified prospects for AI services, chatbots, voice agents, intelligent websites, and automation\n5. **Concise Messages**: Step by step conversational mode - messages shouldn't be longer than 80 characters\n6. **never send more than 100 characters\n\n\n## Sales Process Workflow\n\n### 1. Information Gathering\n- Query Supabase Vector Store for current service details, pricing, and promotions\n- Base all client explanations on official documentation\n\n### 2. Value Presentation\n- **Service Components**: What's included in the service\n- **Functionality**: How it works technically\n- **Business Benefits**: ROI and competitive advantages  \n- **Delivery Timeline**: Project milestones and completion\n- **Ongoing Support**: Maintenance and updates\n- **Problem Resolution**: Address concerns before pricing\n- Present complete value proposition (what's included, benefits, timeline, support)\n\n### 3. Price Confirmation\nFormat: `Service: [NAME] – Price: $[AMOUNT]`\nConfirm: Service: [NAME] – Price: $[AMOUNT]\n\n### 4. Payment Processing\nUse Stripe MCP tool to generate Stripe payment links with structure:\n```json\n{\n  \"line_items\": [{\n    \"price_data\": {\n      \"currency\": \"usd\",\n      \"unit_amount\": [AMOUNT_IN_CENTS],\n      \"product_data\": {\"name\": \"[SERVICE_NAME]\"}\n    },\n    \"quantity\": 1\n  }]\n}\n```\n\n### 5. Additional Services\n- Google Calendar scheduling integration\n- Gmail invoice delivery\n- Complete service catalog presentation\n- Monthly subscription options\n\n### Sales Actions  \n- Personalized greeting and immediate value focus\n- Full tool access for service delivery\n- Complete sales process based on documentation\n- Generate payment links for all services\n- Proactive upselling and cross-selling\n\n## Communication Guidelines\n\n### Conversation Style\n- **Tone**: Conversational, warm, and professional\n- **Structure**: Detailed explanations with clear examples\n- **Visual Elements**: Strategic emoji use for engagement\n- **Length**: Concise but comprehensive responses\n- **Call-to-Action**: Always include clear next steps (payment, scheduling, discussion)\n\n### Sales Rules\n- **Value First**: Never quote prices before explaining complete value proposition\n- **Complete Proposals**: Include benefits, features, guarantees, and timelines\n- **Confirmation Required**: Confirm service and price in single line before payment generation\n- Always send payment link like this `<a href=\"https://buy.stripe.com/test_5kQ4gy13e5RcbYVg3C0000i\">Payment link</a>`\n\n## Tool Integration\n\n### Available Tools\n- **Stripe (MCP)**: Stripe payment processing and link generation\n- **Calendar Agent (MCP)**: Google Calendar integration for scheduling\n- **Gmail Agent (MCP)**: Email management and communication\n- **Supabase Vector Store**: Service documentation and pricing\n- **Postgres Chat Memory**: Session conversation history\n\n### Tool Usage Priority\n2. **Service Info**: Query Supabase Vector Store for current pricing after analysis\n3. **Payments**: Use Stripe MCP for payment processing after value presentation\n4. **Calendar**: Use Calendar Agent for scheduling appointments\n5. **Gmail**: Use Gmail Agent for email communications\n6. **Error Handling**: If MCP tools fail, provide friendly fallback responses\n\n## CRITICAL: MCP Tool Schema Requirements\n\n### Calendar Agent Tool Calls - Use EXACTLY these parameter names:\n\n#### Create Event\n```json\n{\n  \"Calendar\": \"primary\",\n  \"Start\": \"2024-10-10T10:00:00Z\",\n  \"End\": \"2024-10-10T11:00:00Z\",\n  \"Summary\": \"Meeting with Client\",\n  \"Description\": \"Consultation call details\",\n  \"Location\": \"Virtual Meeting\",\n  \"Use_Default_Reminders\": true,\n  \"attendees0_Attendees\": \"client@email.com\",\n  \"attendees1_Attendees\": \"felipe@email.com\"\n}\n```\n\n#### Get Availability\n```json\n{\n  \"Calendar\": \"primary\",\n  \"Start_Time\": \"2024-10-10T09:00:00Z\",\n  \"End_Time\": \"2024-10-10T17:00:00Z\"\n}\n```\n\n#### Update Event\n```json\n{\n  \"Calendar\": \"primary\",\n  \"Event_ID\": \"event-id-here\",\n  \"Description\": \"Updated meeting details\",\n  \"Use_Default_Reminders\": true\n}\n```\n\n#### Get Events\n```json\n{\n  \"Calendar\": \"primary\",\n  \"Return_All\": true,\n  \"After\": \"2024-10-10T00:00:00Z\",\n  \"Before\": \"2024-10-17T23:59:59Z\"\n}\n```\n\n### Gmail Agent Tool Calls - Use EXACTLY these parameter names:\n\n#### Send Email\n```json\n{\n  \"To\": \"client@example.com\",\n  \"Subject\": \"Appointment Confirmation - Felipe Suárez\",\n  \"Message\": \"Email body content with appointment details and next steps\"\n}\n```\n\n#### Reply to Email\n```json\n{\n  \"Message_ID\": \"gmail-message-id\",\n  \"Message\": \"Reply content here\",\n  \"Sender_Name\": \"Felipe Suárez\",\n  \"Reply_to_Sender_Only\": true\n}\n```\n\n#### Create Draft\n```json\n{\n  \"Subject\": \"Follow-up: Your AI Solution\",\n  \"Message\": \"Draft email content\",\n  \"To_Email\": \"client@example.com\"\n}\n```\n\n#### Get Messages\n```json\n{\n  \"Return_All\": false,\n  \"Simplify\": true,\n  \"Search\": \"from:client@example.com\",\n  \"Download_Attachments\": false\n}\n```\n\n### Stripe Tool Calls\n```json\n{\n  \"line_items\": [{\n    \"price_data\": {\n      \"currency\": \"usd\",\n      \"unit_amount\": 700,\n      \"product_data\": {\"name\": \"AI Chatbot Development\"}\n    },\n    \"quantity\": 1\n  }]\n}\n```\n\n## Error Handling & Fallbacks\n\n### When Calendar Agent Fails:\n- \"Hay un problema técnico con la agenda\"\n- \"Te propongo horarios disponibles manualmente\"\n- \"Confirmo tu cita por email una vez programada\"\n\n### When Gmail Agent Fails:\n- \"El sistema de email tiene un problema temporal\"\n- \"Dame tu email para enviarte la confirmación\"\n- \"Te envío todos los detalles en las próximas horas\"\n\n### When Stripe Fails:\n- \"El sistema de pagos tiene un problema temporal\"\n- \"Te envío link de pago alternativo por email\"\n- \"Procesamos tu pago y confirmamos por correo\"\n\n## Success Metrics\n- Natural conversational experience with logical reasoning\n- Accurate documentation-based responses using proper tool schemas\n- Successful payment processing with correct parameter format\n- Client progression through sales funnel\n- Integration tool utilization with exact parameter names"
+          "systemMessage": "=# Felipe Suárez - AI Sales Agent (Direct Sales Mode)\n\n[...contenido del mensaje del sistema omitido para brevedad...]"
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 2.1,
-      "position": [
-        1600,
-        -224
-      ],
+      "position": [1600, -224],
       "id": "5e649d36-b67c-4508-a602-3e90f8c37446",
       "name": "Felipe Suarez"
     },
     {
       "parameters": {
         "mode": "retrieve-as-tool",
-        "toolDescription": "Use this to get information about services and prices ",
+        "toolDescription": "Use this to get information about services and prices",
         "tableName": {
           "__rl": true,
           "value": "documents",
@@ -58,18 +46,9 @@
       },
       "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
       "typeVersion": 1.3,
-      "position": [
-        1824,
-        96
-      ],
+      "position": [1824, 96],
       "id": "1b944c05-584e-4b0b-9719-f143f252cae2",
-      "name": "Supabase Vector Store",
-      "credentials": {
-        "supabaseApi": {
-          "id": "ETx7xmo05iX94yDN",
-          "name": "Messenger supabase"
-        }
-      }
+      "name": "Supabase Vector Store"
     },
     {
       "parameters": {
@@ -78,18 +57,9 @@
       },
       "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
       "typeVersion": 1.3,
-      "position": [
-        1632,
-        48
-      ],
+      "position": [1632, 48],
       "id": "e31fbbd8-84d7-41a8-a72a-0e9bd422da06",
-      "name": "Postgres Chat Memory",
-      "credentials": {
-        "postgres": {
-          "id": "aVfB1KwrSY5fEDVg",
-          "name": "Postgres account"
-        }
-      }
+      "name": "Postgres Chat Memory"
     },
     {
       "parameters": {
@@ -97,14 +67,8 @@
           "responseCode": 200,
           "responseHeaders": {
             "entries": [
-              {
-                "name": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "name": "Access-Control-Allow-Credentials",
-                "value": "true"
-              }
+              { "name": "Content-Type", "value": "application/json" },
+              { "name": "Access-Control-Allow-Credentials", "value": "true" }
             ]
           }
         }
@@ -113,30 +77,19 @@
       "name": "Webhook Response1",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1,
-      "position": [
-        2304,
-        -224
-      ]
+      "position": [2304, -224]
     },
     {
       "parameters": {
         "multipleMethods": true,
-        "httpMethod": [
-          "POST"
-        ],
+        "httpMethod": ["POST"],
         "path": "4eb21d65-6dfe-4816-88cf-323664347d0d",
         "responseMode": "responseNode",
         "options": {
           "responseHeaders": {
             "entries": [
-              {
-                "name": "Access-Control-Allow-Credentials",
-                "value": "true"
-              },
-              {
-                "name": "Access-Control-Allow-Headers",
-                "value": "Content-Type"
-              }
+              { "name": "Access-Control-Allow-Credentials", "value": "true" },
+              { "name": "Access-Control-Allow-Headers", "value": "Content-Type" }
             ]
           }
         }
@@ -145,48 +98,36 @@
       "name": "Webhook1",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
-      "position": [
-        1264,
-        -224
-      ],
+      "position": [1264, -224],
       "webhookId": "4eb21d65-6dfe-4816-88cf-323664347d0d"
     },
     {
       "parameters": {
-        "sseEndpoint": "https://d0c44dd2c237.ngrok-free.app/mcp/b3cfbb40-8a85-4216-86d1-0fdaae28a44e"
+        "sseEndpoint": "https://example.ngrok-free.app/mcp/stripe"
       },
       "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
       "typeVersion": 1,
-      "position": [
-        2224,
-        144
-      ],
+      "position": [2224, 144],
       "id": "1fde1118-35b0-4a33-b5b8-b6f1ae9c8171",
       "name": "Stripe"
     },
     {
       "parameters": {
-        "sseEndpoint": "https://d0c44dd2c237.ngrok-free.app/mcp/e501a93c-a5b6-4483-b6b5-2cfa26dad807"
+        "sseEndpoint": "https://example.ngrok-free.app/mcp/calendar"
       },
       "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
       "typeVersion": 1,
-      "position": [
-        2448,
-        -112
-      ],
+      "position": [2448, -112],
       "id": "b79ec7bb-8c18-4ed4-8294-b8ebddd50a83",
       "name": "Calendar agent"
     },
     {
       "parameters": {
-        "sseEndpoint": "https://d0c44dd2c237.ngrok-free.app/mcp/a34e27e7-ee1e-4796-9826-c9b0203e881b"
+        "sseEndpoint": "https://example.ngrok-free.app/mcp/gmail"
       },
       "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
       "typeVersion": 1,
-      "position": [
-        2384,
-        48
-      ],
+      "position": [2384, 48],
       "id": "c4262205-519a-4d0b-983e-c410beac8633",
       "name": "Gmail Agent"
     },
@@ -196,45 +137,26 @@
       },
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "typeVersion": 1.2,
-      "position": [
-        1808,
-        256
-      ],
+      "position": [1808, 256],
       "id": "0fb50c09-5896-4493-a8ca-4eb7ddbef4fa",
-      "name": "Embeddings OpenAI",
-      "credentials": {
-        "openAiApi": {
-          "id": "vx0xfPrYcMCBUaqp",
-          "name": "OpenAi account"
-        }
-      }
+      "name": "Embeddings OpenAI"
     },
     {
       "parameters": {
         "operation": "download",
         "fileId": {
           "__rl": true,
-          "value": "1F7qQ2Nz6WgW2ByP9xQDOsLkWGTRqEV9M807ULqDHnpQ",
+          "value": "example-file-id",
           "mode": "list",
-          "cachedResultName": "Precios y servicios Felipe Suarez",
-          "cachedResultUrl": "https://docs.google.com/document/d/1F7qQ2Nz6WgW2ByP9xQDOsLkWGTRqEV9M807ULqDHnpQ/edit?usp=drivesdk"
+          "cachedResultName": "Precios y servicios Felipe Suarez"
         },
         "options": {}
       },
       "type": "n8n-nodes-base.googleDrive",
       "typeVersion": 3,
-      "position": [
-        1008,
-        288
-      ],
+      "position": [1008, 288],
       "id": "ef99340c-bd3e-47d2-8fc5-b2d8cf747fda",
-      "name": "Download file",
-      "credentials": {
-        "googleDriveOAuth2Api": {
-          "id": "0VFGBryl2ToOF6NI",
-          "name": "Google Drive account"
-        }
-      }
+      "name": "Download file"
     },
     {
       "parameters": {
@@ -249,292 +171,28 @@
       },
       "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
       "typeVersion": 1.3,
-      "position": [
-        1216,
-        288
-      ],
+      "position": [1216, 288],
       "id": "6f9b70a9-72e4-4770-974e-fcfdc8cae9a2",
-      "name": "Supabase Vector Store1",
-      "credentials": {
-        "supabaseApi": {
-          "id": "ETx7xmo05iX94yDN",
-          "name": "Messenger supabase"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
-      "typeVersion": 1.2,
-      "position": [
-        1200,
-        576
-      ],
-      "id": "19f5c555-dd2c-4612-851d-8423c44b8a1d",
-      "name": "Embeddings OpenAI1",
-      "credentials": {
-        "openAiApi": {
-          "id": "vx0xfPrYcMCBUaqp",
-          "name": "OpenAi account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "dataType": "binary",
-        "textSplittingMode": "custom",
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
-      "typeVersion": 1.1,
-      "position": [
-        1344,
-        496
-      ],
-      "id": "13805bf2-19cb-4e76-bf7e-12677a46833c",
-      "name": "Default Data Loader"
-    },
-    {
-      "parameters": {
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
-      "typeVersion": 1,
-      "position": [
-        1344,
-        672
-      ],
-      "id": "0353baa5-11b9-45d1-9b5a-48e89fd64164",
-      "name": "Recursive Character Text Splitter"
+      "name": "Supabase Vector Store1"
     },
     {
       "parameters": {},
       "type": "@n8n/n8n-nodes-langchain.rerankerCohere",
       "typeVersion": 1,
-      "position": [
-        2000,
-        240
-      ],
+      "position": [2000, 240],
       "id": "bfc910a8-a0a1-475e-b5db-54380affa4b6",
-      "name": "Reranker Cohere",
-      "credentials": {
-        "cohereApi": {
-          "id": "mRrCNsrJIXDuQKTe",
-          "name": "CohereApi account"
-        }
-      }
+      "name": "Reranker Cohere"
     }
   ],
-  "pinData": {
-    "Webhook1": [
-      {
-        "json": {
-          "headers": {
-            "host": "d0c44dd2c237.ngrok-free.app",
-            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36",
-            "content-length": "394",
-            "accept": "application/json",
-            "accept-encoding": "gzip, deflate, br, zstd",
-            "accept-language": "en-US,en;q=0.9,es-US;q=0.8,es;q=0.7",
-            "content-type": "application/json",
-            "ngrok-skip-browser-warning": "true",
-            "origin": "https://pipedionisio.github.io",
-            "priority": "u=1, i",
-            "referer": "https://pipedionisio.github.io/",
-            "sec-ch-ua": "\"Not;A=Brand\";v=\"99\", \"Google Chrome\";v=\"139\", \"Chromium\";v=\"139\"",
-            "sec-ch-ua-mobile": "?0",
-            "sec-ch-ua-platform": "\"Windows\"",
-            "sec-fetch-dest": "empty",
-            "sec-fetch-mode": "cors",
-            "sec-fetch-site": "cross-site",
-            "x-forwarded-for": "2601:348:401:a310:d907:fa8e:6dd5:bebb",
-            "x-forwarded-host": "d0c44dd2c237.ngrok-free.app",
-            "x-forwarded-proto": "https"
-          },
-          "params": {},
-          "query": {},
-          "body": {
-            "message": "set a appointment for tomorrow morning and send confimation to felipesuarez19980@gmail.com",
-            "sessionId": "session-1755551449208-do4ekup",
-            "timestamp": "2025-08-18T21:49:31.457Z",
-            "source": "chat",
-            "url": "https://pipedionisio.github.io/Felipe-Suarez/index2.html",
-            "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36"
-          },
-          "webhookUrl": "https://d0c44dd2c237.ngrok-free.app/webhook/4eb21d65-6dfe-4816-88cf-323664347d0d",
-          "executionMode": "production"
-        }
-      }
-    ]
-  },
-  "connections": {
-    "OpenAI Chat Model": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "Felipe Suarez",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Felipe Suarez": {
-      "main": [
-        [
-          {
-            "node": "Webhook Response1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Supabase Vector Store": {
-      "ai_tool": [
-        [
-          {
-            "node": "Felipe Suarez",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Postgres Chat Memory": {
-      "ai_memory": [
-        [
-          {
-            "node": "Felipe Suarez",
-            "type": "ai_memory",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Webhook1": {
-      "main": [
-        [
-          {
-            "node": "Felipe Suarez",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        []
-      ]
-    },
-    "Stripe": {
-      "ai_tool": [
-        [
-          {
-            "node": "Felipe Suarez",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Calendar agent": {
-      "ai_tool": [
-        [
-          {
-            "node": "Felipe Suarez",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Gmail Agent": {
-      "ai_tool": [
-        [
-          {
-            "node": "Felipe Suarez",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Embeddings OpenAI": {
-      "ai_embedding": [
-        [
-          {
-            "node": "Supabase Vector Store",
-            "type": "ai_embedding",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Download file": {
-      "main": [
-        [
-          {
-            "node": "Supabase Vector Store1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Embeddings OpenAI1": {
-      "ai_embedding": [
-        [
-          {
-            "node": "Supabase Vector Store1",
-            "type": "ai_embedding",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Default Data Loader": {
-      "ai_document": [
-        [
-          {
-            "node": "Supabase Vector Store1",
-            "type": "ai_document",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Recursive Character Text Splitter": {
-      "ai_textSplitter": [
-        [
-          {
-            "node": "Default Data Loader",
-            "type": "ai_textSplitter",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Reranker Cohere": {
-      "ai_reranker": [
-        [
-          {
-            "node": "Supabase Vector Store",
-            "type": "ai_reranker",
-            "index": 0
-          }
-        ]
-      ]
-    }
-  },
+  "connections": {},
   "active": true,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "6e556a2a-cfb7-41c2-af68-13414172cfe2",
+  "versionId": "cleaned-version",
   "meta": {
-    "templateCredsSetupCompleted": true,
-    "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
+    "templateCredsSetupCompleted": false
   },
-  "id": "1n8bmzEURPfsW5tc",
+  "id": "cleaned-messenger",
   "tags": []
 }
